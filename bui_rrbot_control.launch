@@ -1,0 +1,14 @@
+<launch>
+
+
+  <!-- Include gazebo launch file rrbot_world.launch -->
+  <include file="$(find rrbot_gazebo)/launch/rrbot_world.launch" />
+
+  <!-- Include ros_control launch file to load joint position controllers -->
+  <include file="$(find rrbot_control)/launch/rrbot_control.launch" />
+
+  <!-- Create node to control joint positions of rrbot1 using joint controller -->
+  <node name="joint_positions_node" pkg="rrbot_control" type="position_control.py" output="screen" respawn="true" />
+
+
+</launch>
