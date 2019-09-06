@@ -1,0 +1,21 @@
+<launch>
+    <group>
+
+        <param name="tf_prefix" value="rrbot3_tf" />
+
+        <param name="/rrbot3/robot_description" command="$(find xacro)/xacro --inorder '$(find rrbot_description)/urdf/rrbot3.xacro'"/>
+        
+        <node name="urdf_spawner_3" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" ns="/rrbot3" args="-x 1.0 -y 0.05 -unpause -urdf -model rrbot3 -param robot_description "/>
+
+        <node name="rrbot_state_publisher_3" pkg="robot_state_publisher" type="robot_state_publisher" ns="/rrbot3">
+            <param name="publish_frequency" type="double" value="30.0" />
+        </node>
+
+        <rosparam file="$(find rrbots_control)/config/rrbot3_pidcontrol.yaml" command="load" />
+
+        <node name="rrbot3_controller_spawner" pkg="controller_manager" type="spawner3" respawn="false" output="screen" ns="/rrbot3" args="joint_state_controller joint1_position_controller joint2_position_controller --namespace /rrbot3"/>
+
+        <node name="joint_position_node" pkg="rrbots_control" type="position_control_rrbot3.py" output="screen" respawn="true" ns="/rrbot3"/>
+    </group>
+
+</launch>
