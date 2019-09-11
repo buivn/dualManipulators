@@ -1,0 +1,26 @@
+<launch>
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find i5_gazebo)/worlds/i5_robot.world"/>
+    <!-- more default parameters can be changed here -->
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/> <!-- Inert - see gazebo_ros_pkgs issue #491 -->
+    <arg name="recording" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <!-- Spawn the first robot into Gazebo -->
+<!--   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file /home/buivn/wsros_gazebo/src/baxter_common/baxter_description/urdf/baxter.urdf -urdf -z 1 -model baxter" /> -->
+
+  <!-- Spawn the first Aubo-robot into Gazebo -->
+  <!-- <node name="spawn_urdf1" pkg="gazebo_ros" type="spawn_model" args="-file /home/buivn/wsros_gazebo/src/i5_robot/i5_description/urdf/aubo_i5.urdf -urdf -x 2 -model aubo_i5_1" /> -->
+
+  <param name="/i5aubo1/robot_description" command="$(find xacro)/xacro --inorder '$(find i5_description)/urdf/i5aubo1.xacro'"/>
+  <node name="spawn_urdf1" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" ns="i5aubo1" args="-urdf -x 1.0 -model i5aubo1 -param robot_description" />
+
+  <!-- Spawn the second Aubo-robot into Gazebo -->
+  <!-- <node name="spawn_urdf2" pkg="gazebo_ros" type="spawn_model" args="-file /home/buivn/wsros_gazebo/src/i5_description/urdf/aubo_i5.urdf -urdf -model aubo_i5_2" /> -->
+
+</launch>

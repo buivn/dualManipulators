@@ -1,0 +1,20 @@
+<package>
+  <name>i5_description</name>
+  <version>0.4.0</version>
+
+  <description>This package contains a number of URDF tutorials.</description>
+  <author email="bui.hoangdungtn@gmail.com"> Dzung H. Bui!!</author>
+
+  <maintainer email="bui.hoangdungtn@gmail.com"> Dzung H. Bui!!</maintainer>
+
+  <license>BSD</license>
+  <url>http://l</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roslaunch</build_depend>
+  <run_depend>joint_state_publisher</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>rviz</run_depend>
+  <run_depend>xacro</run_depend>
+
+</package>

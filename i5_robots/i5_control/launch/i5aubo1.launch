@@ -1,0 +1,22 @@
+<launch>
+    <group>
+
+        <param name="tf_prefix" value="i5aubo1_tf" />
+
+        <param name="/i5aubo1/robot_description" command="$(find xacro)/xacro --inorder '$(find i5_description)/urdf/i5aubo1.xacro'"/>
+        
+        <node name="urdf_spawner_i5aubo1" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" ns="/i5aubo1" args="-x 1.0 -unpause -urdf -model i5aubo1 -param robot_description "/>
+
+        <node name="i5aubo1_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="/i5aubo1">
+            <param name="publish_frequency" type="double" value="30.0" />
+        </node>
+
+        <rosparam file="$(find i5_control)/config/i5aubo1_controller.yaml" command="load" />
+
+        <node name="i5aubo1_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/i5aubo1" args="joint_state_controller shoulder_joint_position_controller upperArm_joint_position_controller foreArm_joint_position_controller
+        wrist1_joint_position_controller wrist2_joint_position_controller wrist3_joint_position_controller   --namespace /i5aubo1"/>
+
+        <node name="i5aubo1_joint_position_control" pkg="i5_control" type="position_control_i5aubo1.py" output="screen" respawn="true" ns="/i5aubo1"/>
+    </group>
+
+</launch>
