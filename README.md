@@ -1,4 +1,4 @@
-# 2ArmRobots
+# dualManipulators
 This project works on cooperation of two Aubo robots\
 
 Link video of 2 rrbots working together on Gazebo \ 
