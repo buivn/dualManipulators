@@ -1,392 +1,627 @@
 <?xml version="1.0"?>
 <robot name="i5aubo1" xmlns:xacro="http://ros.org/wiki/xacro">
-
-    <!-- Constants -->
-    <xacro:property name="M_PI" value="3.14159"/>
+  <!-- Constants -->
+  <xacro:property name="M_PI" value="3.14159"/>
 
   <!-- ros_control plugin -->
-    <gazebo>
-        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-            <robotNamespace>/i5aubo1</robotNamespace>
-            <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-            <legacyModeNS>true</legacyModeNS>
-        </plugin>
-    </gazebo>
-
- <!-- Defining the colors used in this robot -->
-    <material name="Black">
-        <color rgba="0 0 0 1"/>
-    </material>
-
-    <material name="White">
-        <color rgba="1 1 1 1"/>
-    </material>
-
-    <material name="Blue">
-        <color rgba="0 0 1 1"/>
-    </material>
-
-    <material name="Red">
-        <color rgba="1 0 0 1"/>
-    </material>
-
-    <material name="Grey">
-        <color rgba="0.96 0.96 0.96 1"/>
-    </material>
-
-    <!--/////////////////// DYNAMICS PARAM //////////////////////-->
-    <xacro:macro name="I5_Shoulder_Inertia">
-        <origin xyz="0.0 0.006 -0.002"
-                rpy="0 0 0" />
-        <mass value="5.05" />
-        <inertia ixx="0.0148"
-                 ixy="0"
-                 ixz="0"
-                 iyy="0.0143"
-                 iyz="-0.0"
-                 izz="0.0095" />
-    </xacro:macro>
-
-    <xacro:macro name="I5_UpperArm_Inertia">
-        <origin xyz="0.304 0.0 -0.03"
-                rpy="0 0 0" />
-        <mass value="11.90" />
-        <inertia ixx="0.0305"
-                 ixy="0"
-                 ixz="0"
-                 iyy="0.4505"
-                 iyz="0"
-                 izz="0.0095" />
-    </xacro:macro>
-
-    <xacro:macro name="I5_ForeArm_Inertia">
-        <origin xyz="0.415 0.0 0.0992"
-                rpy="0 0 0" />
-        <mass  value="3.3" />
-        <inertia ixx="0.0033"
-                 ixy="0"
-                 ixz="0.0009"
-                 iyy="0.0575"
-                 iyz="0"
-                 izz="0.0565" />
-    </xacro:macro>
-
-    <xacro:macro name="I5_Wrist1_Inertia">
-        <origin xyz="0.0 0.0028 -0.003"
-                rpy="0 0 0" />
-        <mass value="1.62" />
-        <inertia ixx="0.0023"
-                 ixy="0"
-                 ixz="0"
-                 iyy="0.0013"
-                 iyz="0.0"
-                 izz="0.0022" />
-    </xacro:macro>
-
-    <xacro:macro name="I5_Wrist2_Inertia">
-        <origin xyz="0.0 -0.0028 -0.003"
-                rpy="0 0 0" />
-        <mass value="1.62" />
-        <inertia ixx="0.0023"
-                 ixy="0"
-                 ixz="0"
-                 iyy="0.0013"
-                 iyz="0.0"
-                 izz="0.0022" />
-    </xacro:macro>
-
-    <xacro:macro name="I5_Wrist3_Inertia">
-        <origin xyz="0.0 0.0 -0.0071"
-                rpy="0 0 0" />
-        <mass value="0.40" />
-        <inertia ixx="0.013939"
-                 ixy="0"
-                 ixz="0"
-                 iyy="0.013988"
-                 iyz="0.0"
-                 izz="0.0224092" />
-    </xacro:macro>
-
-    <!--/////////////////////////////// BASE_LINK ////////////////////////////////////-->
-   
-   <link name="base_link">
+  <gazebo>
+    <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
+      <robotNamespace>/i5aubo1</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>true</legacyModeNS>
+    </plugin>
+  </gazebo>
+  <!-- Defining the colors used in this robot -->
+  <material name="Black">
+    <color rgba="0 0 0 1"/>
+  </material>
+  <material name="White">
+    <color rgba="1 1 1 1"/>
+  </material>
+  <material name="Blue">
+    <color rgba="0 0 1 1"/>
+  </material>
+  <material name="Red">
+    <color rgba="1 0 0 1"/>
+  </material>
+  <material name="Grey">
+    <color rgba="0.96 0.96 0.96 1"/>
+  </material>
+  <!--/////////////////// DYNAMICS PARAM //////////////////////-->
+  <xacro:macro name="I5_Shoulder_Inertia">
+    <origin rpy="0 0 0" xyz="0.0 0.006 -0.002"/>
+    <mass value="5.05"/>
+    <inertia ixx="0.0148" ixy="0" ixz="0" iyy="0.0143" iyz="-0.0" izz="0.0095"/>
+  </xacro:macro>
+  <xacro:macro name="I5_UpperArm_Inertia">
+    <origin rpy="0 0 0" xyz="0.304 0.0 -0.03"/>
+    <mass value="11.90"/>
+    <inertia ixx="0.0305" ixy="0" ixz="0" iyy="0.4505" iyz="0" izz="0.0095"/>
+  </xacro:macro>
+  <xacro:macro name="I5_ForeArm_Inertia">
+    <origin rpy="0 0 0" xyz="0.415 0.0 0.0992"/>
+    <mass value="3.3"/>
+    <inertia ixx="0.0033" ixy="0" ixz="0.0009" iyy="0.0575" iyz="0" izz="0.0565"/>
+  </xacro:macro>
+  <xacro:macro name="I5_Wrist1_Inertia">
+    <origin rpy="0 0 0" xyz="0.0 0.0028 -0.003"/>
+    <mass value="1.62"/>
+    <inertia ixx="0.0023" ixy="0" ixz="0" iyy="0.0013" iyz="0.0" izz="0.0022"/>
+  </xacro:macro>
+  <xacro:macro name="I5_Wrist2_Inertia">
+    <origin rpy="0 0 0" xyz="0.0 -0.0028 -0.003"/>
+    <mass value="1.62"/>
+    <inertia ixx="0.0023" ixy="0" ixz="0" iyy="0.0013" iyz="0.0" izz="0.0022"/>
+  </xacro:macro>
+  <xacro:macro name="I5_Wrist3_Inertia">
+    <origin rpy="0 0 0" xyz="0.0 0.0 -0.0071"/>
+    <mass value="0.40"/>
+    <inertia ixx="0.013939" ixy="0" ixz="0" iyy="0.013988" iyz="0.0" izz="0.0224092"/>
+  </xacro:macro>
+  <!--/////////////////////////////// BASE_LINK ////////////////////////////////////-->
+  <link name="base_link">
     <inertial>
-      <origin xyz="-1.4795E-13 0.0015384 0.020951" rpy="0 0 0" />
-      <mass value="0.83419" />
-      <inertia ixx="0.0014414" ixy="7.8809E-15" ixz="8.5328E-16" iyy="0.0013542" iyz="-1.4364E-05" izz="0.0024659" />
+      <origin rpy="0 0 0" xyz="-1.4795E-13 0.0015384 0.020951"/>
+      <mass value="0.83419"/>
+      <inertia ixx="0.0014414" ixy="7.8809E-15" ixz="8.5328E-16" iyy="0.0013542" iyz="-1.4364E-05" izz="0.0024659"/>
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <!-- <mesh filename="package://aubo_description/meshes/aubo_i5/visual/base_link.DAE" /> -->
-        <mesh filename="/home/buivn/wsros_gazebo/src/i5_robots/i5_description/meshes/aubo_i5/visual/base_link.DAE" />
+         <!-- <mesh filename="package://aubo_description/meshes/aubo_i5/visual/base_link.DAE" /> -->
+         <mesh filename="package://i5_description/meshes/aubo_i5/visual/base_link.DAE" />
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/visual/base_link.DAE"/> -->
       </geometry>
       <material name="">
-        <color rgba="1 1 1 1" />
+        <color rgba="1 1 1 1"/>
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/home/buivn/wsros_gazebo/src/i5_robots/i5_description/meshes/aubo_i5/collision/base_link.STL" />
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/collision/base_link.STL"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/collision/base_link.STL"/>
       </geometry>
     </collision>
   </link>
-
   <!--/////////////////////////////// SHOULDER_LINK ////////////////////////////////////-->
   <link name="shoulder_Link">
     <inertial>
-      <xacro:I5_Shoulder_Inertia />
+      <xacro:I5_Shoulder_Inertia/>
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/home/buivn/wsros_gazebo/src/i5_robots/i5_description/meshes/aubo_i5/visual/shoulder_Link.DAE" />
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/visual/shoulder_Link.DAE"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/visual/shoulder_Link.DAE"/>
       </geometry>
       <material name="">
-        <color rgba="1 1 1 1" />
+        <color rgba="1 1 1 1"/>
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/home/buivn/wsros_gazebo/src/i5_robots/i5_description/meshes/aubo_i5/collision/shoulder_Link.STL" />
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/collision/shoulder_Link.STL"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/collision/shoulder_Link.STL"/>
       </geometry>
     </collision>
   </link>
-
-
   <!--/////////////////////////////// SHOULDER_JOINT ////////////////////////////////////-->
   <joint name="shoulder_joint" type="revolute">
-    <origin xyz="0 0 0.122" rpy="0 0 3.1416" />
-    <parent link="base_link" />
-    <child link="shoulder_Link" />
-    <axis xyz="0 0 1" />
-    <limit lower="-3.05" upper="3.05" effort="300" velocity="100" />
+    <origin rpy="0 0 3.1416" xyz="0 0 0.122"/>
+    <parent link="base_link"/>
+    <child link="shoulder_Link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="300" lower="-3.05" upper="3.05" velocity="100"/>
   </joint>
-
-
   <!--/////////////////////////////// UPPERARM_LINK ////////////////////////////////////-->
   <link name="upperArm_Link">
     <inertial>
-      <xacro:I5_UpperArm_Inertia />
+      <xacro:I5_UpperArm_Inertia/>
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/home/buivn/wsros_gazebo/src/i5_robots/i5_description/meshes/aubo_i5/visual/upperArm_Link.DAE" />
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/visual/upperArm_Link.DAE"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/visual/upperArm_Link.DAE"/>
       </geometry>
       <material name="">
-        <color rgba="1 1 1 1" />
+        <color rgba="1 1 1 1"/>
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/home/buivn/wsros_gazebo/src/i5_robots/i5_description/meshes/aubo_i5/collision/upperArm_Link.STL" />
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/collision/upperArm_Link.STL"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/collision/upperArm_Link.STL"/>
       </geometry>
     </collision>
   </link>
-
   <!--/////////////////////////////// UPPERARM_JOINT ////////////////////////////////////-->
   <joint name="upperArm_joint" type="revolute">
-    <origin xyz="0 0.1215 0" rpy="-1.5708 -1.5708 0" />
-    <parent link="shoulder_Link" />
-    <child link="upperArm_Link" />
-    <axis xyz="0 0 1" />
-    <limit lower="-3.05" upper="3.05" effort="300" velocity="100" />
+    <origin rpy="-1.5708 -1.5708 0" xyz="0 0.1215 0"/>
+    <parent link="shoulder_Link"/>
+    <child link="upperArm_Link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="300" lower="-3.05" upper="3.05" velocity="100"/>
   </joint>
-
-
   <!--/////////////////////////////// FOREARM_LINK ////////////////////////////////////-->
   <link name="foreArm_Link">
     <inertial>
-      <xacro:I5_ForeArm_Inertia />
+      <xacro:I5_ForeArm_Inertia/>
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/home/buivn/wsros_gazebo/src/i5_robots/i5_description/meshes/aubo_i5/visual/foreArm_Link.DAE" />
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/visual/foreArm_Link.DAE"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/visual/foreArm_Link.DAE"/>
       </geometry>
       <material name="">
-        <color rgba="1 1 1 1" />
+        <color rgba="1 1 1 1"/>
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/home/buivn/wsros_gazebo/src/i5_robots/i5_description/meshes/aubo_i5/collision/foreArm_Link.STL" />
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/collision/foreArm_Link.STL"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/collision/foreArm_Link.STL"/>
       </geometry>
     </collision>
   </link>
-
-
   <!--/////////////////////////////// FOREARM_JOINT ////////////////////////////////////-->
   <joint name="foreArm_joint" type="revolute">
-    <origin xyz="0.408 0 0" rpy="-3.1416 -5.1632E-18 -5.459E-16" />
-    <parent link="upperArm_Link" />
-    <child link="foreArm_Link" />
-    <axis xyz="0 0 1" />
-    <limit lower="-3.05" upper="3.05" effort="300" velocity="100" />
+    <origin rpy="-3.1416 -5.1632E-18 -5.459E-16" xyz="0.408 0 0"/>
+    <parent link="upperArm_Link"/>
+    <child link="foreArm_Link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="300" lower="-3.05" upper="3.05" velocity="100"/>
   </joint>
-
-
   <!--/////////////////////////////// WRIST1_LINK ////////////////////////////////////-->
   <link name="wrist1_Link">
     <inertial>
-      <xacro:I5_Wrist1_Inertia />
+      <xacro:I5_Wrist1_Inertia/>
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/home/buivn/wsros_gazebo/src/i5_robots/i5_description/meshes/aubo_i5/visual/wrist1_Link.DAE" />
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/visual/wrist1_Link.DAE"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/visual/wrist1_Link.DAE"/>
       </geometry>
       <material name="">
-        <color rgba="1 1 1 1" />
+        <color rgba="1 1 1 1"/>
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/home/buivn/wsros_gazebo/src/i5_robots/i5_description/meshes/aubo_i5/collision/wrist1_Link.STL" />
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/collision/wrist1_Link.STL"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/collision/wrist1_Link.STL"/>
       </geometry>
     </collision>
   </link>
-
-
   <!--/////////////////////////////// WRIST1_JOINT ////////////////////////////////////-->
   <joint name="wrist1_joint" type="revolute">
-    <origin xyz="0.376 0 0" rpy="3.1416 -1.8323E-15 1.5708" />
-    <parent link="foreArm_Link" />
-    <child link="wrist1_Link" />
-    <axis xyz="0 0 1" />
-    <limit lower="-3.05" upper="3.05" effort="300" velocity="100" />
+    <origin rpy="3.1416 -1.8323E-15 1.5708" xyz="0.376 0 0"/>
+    <parent link="foreArm_Link"/>
+    <child link="wrist1_Link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="300" lower="-3.05" upper="3.05" velocity="100"/>
   </joint>
-
   <!--/////////////////////////////// WRIST2_LINK ////////////////////////////////////-->
   <link name="wrist2_Link">
     <inertial>
-      <xacro:I5_Wrist2_Inertia />
+      <xacro:I5_Wrist2_Inertia/>
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/home/buivn/wsros_gazebo/src/i5_robots/i5_description/meshes/aubo_i5/visual/wrist2_Link.DAE" />
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/visual/wrist2_Link.DAE"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/visual/wrist2_Link.DAE"/>
       </geometry>
       <material name="">
-        <color rgba="1 1 1 1" />
+        <color rgba="1 1 1 1"/>
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/home/buivn/wsros_gazebo/src/i5_robots/i5_description/meshes/aubo_i5/collision/wrist2_Link.STL" />
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/collision/wrist2_Link.STL"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/collision/wrist2_Link.STL"/>
       </geometry>
     </collision>
   </link>
-
   <!--/////////////////////////////// WRIST2_JOINT ////////////////////////////////////-->
   <joint name="wrist2_joint" type="revolute">
-    <origin xyz="0 0.1025 0" rpy="-1.5708 -1.8709E-15 -1.6653E-16" />
-    <parent link="wrist1_Link" />
-    <child link="wrist2_Link" />
-    <axis xyz="0 0 1" />
-    <limit lower="-3.05" upper="3.05" effort="300" velocity="100" />
+    <origin rpy="-1.5708 -1.8709E-15 -1.6653E-16" xyz="0 0.1025 0"/>
+    <parent link="wrist1_Link"/>
+    <child link="wrist2_Link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="300" lower="-3.05" upper="3.05" velocity="100"/>
   </joint>
-
   <!--/////////////////////////////// WRIST3_LINK ////////////////////////////////////-->
   <link name="wrist3_Link">
     <inertial>
-      <xacro:I5_Wrist3_Inertia />
+      <xacro:I5_Wrist3_Inertia/>
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/home/buivn/wsros_gazebo/src/i5_robots/i5_description/meshes/aubo_i5/visual/wrist3_Link.DAE" />
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/visual/wrist3_Link.DAE"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/visual/wrist3_Link.DAE"/>
       </geometry>
       <material name="">
-        <color rgba="1 1 1 1" />
+        <color rgba="1 1 1 1"/>
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/home/buivn/wsros_gazebo/src/i5_robots/i5_description/meshes/aubo_i5/collision/wrist3_Link.STL" />
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/collision/wrist3_Link.STL"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/collision/wrist3_Link.STL"/>
       </geometry>
     </collision>
   </link>
-
   <!--/////////////////////////////// WRIST3_JOINT ////////////////////////////////////-->
   <joint name="wrist3_joint" type="revolute">
-    <origin xyz="0 -0.094 0" rpy="1.5708 0 1.7907E-15" />
-    <parent link="wrist2_Link" />
-    <child link="wrist3_Link" />
-    <axis xyz="0 0 1" />
-    <limit lower="-3.05" upper="3.05" effort="300" velocity="100" />
+    <origin rpy="1.5708 0 1.7907E-15" xyz="0 -0.094 0"/>
+    <parent link="wrist2_Link"/>
+    <child link="wrist3_Link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="300" lower="-3.05" upper="3.05" velocity="100"/>
+  </joint>
+
+  <!--/////////////////////////////// GRIPPER ////////////////////////////////////-->
+  <joint name="hand_joint" type="fixed">
+    <origin rpy="0 -1.57079632679 1.57079632679" xyz="0 0 0"/>
+    <parent link="wrist3_Link"/>
+    <child link="gripper_base_link"/>
+    <axis xyz="0 0 0"/>
   </joint>
 
 
+  <link name="gripper_base_link">
+    <visual>
+      <geometry>
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/visual/robotiq_85_base_link.dae"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/visual/robotiq_85_base_link.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/collision/robotiq_85_base_link.stl"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/collision/robotiq_85_base_link.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.636951"/>
+      <origin xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.000380" ixy="0.000000" ixz="0.000000" iyx="0.000000" iyy="0.001110" iyz="0.000000" izx="0.000000" izy="0.000000" izz="0.001171"/>
+    </inertial>
+  </link>
 
+  <gazebo reference="gripper_base_link">
+    <implicitSpringDamper>1</implicitSpringDamper>
+    <mu1>100000</mu1>
+    <mu2>100000</mu2>
+    <kp>100000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+
+  <joint name="gripper_finger1_joint" type="revolute">
+    <parent link="gripper_base_link"/>
+    <child link="gripper_finger1_knuckle_link"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy="${M_PI} 0.0 0.0" xyz="0.05490451627 0.03060114443 0.0"/>
+    <limit effort="1000" lower="0.0" upper="0.804" velocity="2.0"/>
+  </joint>
+  <joint name="gripper_finger2_joint" type="revolute">
+    <parent link="gripper_base_link"/>
+    <child link="gripper_finger2_knuckle_link"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy="0.0 0.0 0.0" xyz="0.05490451627 -0.03060114443 0.0"/>
+    <limit effort="1000" lower="-3.14" upper="3.14" velocity="100.0"/>
+    <mimic joint="gripper_finger1_joint"/>
+  </joint>
+  <link name="gripper_finger1_knuckle_link">
+    <visual>
+      <geometry>
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/visual/robotiq_85_knuckle_link.dae"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/visual/robotiq_85_knuckle_link.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/collision/robotiq_85_knuckle_link.stl"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/collision/robotiq_85_knuckle_link.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.018491"/>
+      <origin xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.000009" ixy="-0.000001" ixz="0.000000" iyx="-0.000001" iyy="0.000001" iyz="0.000000" izx="0.000000" izy="0.000000" izz="0.000010"/>
+    </inertial>
+  </link>
+  <gazebo reference="gripper_finger1_knuckle_link">
+    <implicitSpringDamper>1</implicitSpringDamper>
+    <mu1>100000</mu1>
+    <mu2>100000</mu2>
+    <kp>100000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+  <link name="gripper_finger2_knuckle_link">
+    <visual>
+      <geometry>
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/visual/robotiq_85_knuckle_link.dae"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/visual/robotiq_85_knuckle_link.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/collision/robotiq_85_knuckle_link.stl"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/collision/robotiq_85_knuckle_link.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.018491"/>
+      <origin xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.000009" ixy="-0.000001" ixz="0.000000" iyx="-0.000001" iyy="0.000001" iyz="0.000000" izx="0.000000" izy="0.000000" izz="0.000010"/>
+    </inertial>
+  </link>
+  <gazebo reference="gripper_finger2_knuckle_link">
+    <implicitSpringDamper>1</implicitSpringDamper>
+    <mu1>100000</mu1>
+    <mu2>100000</mu2>
+    <kp>100000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+  <joint name="gripper_finger1_finger_joint" type="fixed">
+    <parent link="gripper_finger1_knuckle_link"/>
+    <child link="gripper_finger1_finger_link"/>
+    <origin rpy="0 0 0" xyz="-0.00408552455 -0.03148604435 0.0"/>
+  </joint>
+  <joint name="gripper_finger2_finger_joint" type="fixed">
+    <parent link="gripper_finger2_knuckle_link"/>
+    <child link="gripper_finger2_finger_link"/>
+    <origin rpy="0 0 0" xyz="-0.00408552455 -0.03148604435 0.0"/>
+  </joint>
+  <link name="gripper_finger1_finger_link">
+    <visual>
+      <geometry>
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/visual/robotiq_85_finger_link.dae"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/visual/robotiq_85_finger_link.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/collision/robotiq_85_finger_link.stl"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/collision/robotiq_85_finger_link.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.027309"/>
+      <origin xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.000003" ixy="-0.000002" ixz="0.000000" iyx="-0.000002" iyy="0.000021" iyz="0.000000" izx="0.000000" izy="0.000000" izz="0.000020"/>
+    </inertial>
+  </link>
+  <gazebo reference="gripper_finger1_finger_link">
+    <implicitSpringDamper>1</implicitSpringDamper>
+    <mu1>100000</mu1>
+    <mu2>100000</mu2>
+    <kp>100000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+  <link name="gripper_finger2_finger_link">
+    <visual>
+      <geometry>
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/visual/robotiq_85_finger_link.dae"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/visual/robotiq_85_finger_link.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/collision/robotiq_85_finger_link.stl"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/collision/robotiq_85_finger_link.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.027309"/>
+      <origin xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.000003" ixy="-0.000002" ixz="0.000000" iyx="-0.000002" iyy="0.000021" iyz="0.000000" izx="0.000000" izy="0.000000" izz="0.000020"/>
+    </inertial>
+  </link>
+  <gazebo reference="gripper_finger2_finger_link">
+    <implicitSpringDamper>1</implicitSpringDamper>
+    <mu1>100000</mu1>
+    <mu2>100000</mu2>
+    <kp>100000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+  <joint name="gripper_finger1_inner_knuckle_joint" type="continuous">
+    <parent link="gripper_base_link"/>
+    <child link="gripper_finger1_inner_knuckle_link"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy="${M_PI} 0.0 0.0" xyz="0.06142 0.0127 0"/>
+    <limit effort="0.1" lower="-3.14" upper="3.14" velocity="100.0"/>
+    <mimic joint="gripper_finger1_joint" offset="0"/>
+  </joint>
+  <joint name="gripper_finger2_inner_knuckle_joint" type="continuous">
+    <parent link="gripper_base_link"/>
+    <child link="gripper_finger2_inner_knuckle_link"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 0 0" xyz="0.06142 -0.0127 0"/>
+    <limit effort="0.1" lower="-3.14" upper="3.14" velocity="100.0"/>
+    <mimic joint="gripper_finger1_joint" offset="0"/>
+  </joint>
+  <link name="gripper_finger1_inner_knuckle_link">
+    <visual>
+      <geometry>
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/visual/robotiq_85_inner_knuckle_link.dae"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/visual/robotiq_85_inner_knuckle_link.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/collision/robotiq_85_inner_knuckle_link.stl"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/collision/robotiq_85_inner_knuckle_link.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.029951"/>
+      <origin xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.000039" ixy="0.000000" ixz="0.000000" iyx="0.000000" iyy="0.000005" iyz="0.000000" izx="0.000000" izy="0.000000" izz="0.000035"/>
+    </inertial>
+  </link>
+  <gazebo reference="gripper_finger1_inner_knuckle_link">
+    <implicitSpringDamper>1</implicitSpringDamper>
+    <mu1>100000</mu1>
+    <mu2>100000</mu2>
+    <kp>100000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+  <link name="gripper_finger2_inner_knuckle_link">
+    <visual>
+      <geometry>
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/visual/robotiq_85_inner_knuckle_link.dae"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/visual/robotiq_85_inner_knuckle_link.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/collision/robotiq_85_inner_knuckle_link.stl"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/collision/robotiq_85_inner_knuckle_link.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.029951"/>
+      <origin xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.000039" ixy="0.000000" ixz="0.000000" iyx="0.000000" iyy="0.000005" iyz="0.000000" izx="0.000000" izy="0.000000" izz="0.000035"/>
+    </inertial>
+  </link>
+  <gazebo reference="gripper_finger2_inner_knuckle_link">
+    <implicitSpringDamper>1</implicitSpringDamper>
+    <mu1>100000</mu1>
+    <mu2>100000</mu2>
+    <kp>100000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+  <joint name="gripper_finger1_finger_tip_joint" type="continuous">
+    <parent link="gripper_finger1_inner_knuckle_link"/>
+    <child link="gripper_finger1_finger_tip_link"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy="0.0 0.0 0.0" xyz="0.04303959807 -0.03759940821 0.0"/>
+    <limit effort="0.1" lower="-3.14" upper="3.14" velocity="100.0"/>
+    <mimic joint="gripper_finger1_joint" multiplier="-1"/>
+  </joint>
+  <joint name="gripper_finger2_finger_tip_joint" type="continuous">
+    <parent link="gripper_finger2_inner_knuckle_link"/>
+    <child link="gripper_finger2_finger_tip_link"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy="0.0 0.0 0.0" xyz="0.04303959807 -0.03759940821  0.0"/>
+    <limit effort="0.1" lower="-3.14" upper="3.14" velocity="100.0"/>
+    <mimic joint="gripper_finger1_joint" multiplier="-1"/>
+  </joint>
+  <link name="gripper_finger1_finger_tip_link">
+    <visual>
+      <geometry>
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/visual/robotiq_85_finger_tip_link.dae"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/visual/robotiq_85_finger_tip_link.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/collision/robotiq_85_finger_tip_link.stl"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/collision/robotiq_85_finger_tip_link.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.019555"/>
+      <origin xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.000002" ixy="0.000000" ixz="0.000000" iyx="0.000000" iyy="0.000005" iyz="0.000000" izx="0.000000" izy="0.000000" izz="0.000006"/>
+    </inertial>
+  </link>
+  <gazebo reference="gripper_finger1_finger_tip_link">
+    <implicitSpringDamper>1</implicitSpringDamper>
+    <mu1>100000</mu1>
+    <mu2>100000</mu2>
+    <kp>100000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+  <link name="gripper_finger2_finger_tip_link">
+    <visual>
+      <geometry>
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/visual/robotiq_85_finger_tip_link.dae"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/visual/robotiq_85_finger_tip_link.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/collision/robotiq_85_finger_tip_link.stl"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/collision/robotiq_85_finger_tip_link.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.019555"/>
+      <origin xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.000002" ixy="0.000000" ixz="0.000000" iyx="0.000000" iyy="0.000005" iyz="0.000000" izx="0.000000" izy="0.000000" izz="0.000006"/>
+    </inertial>
+  </link>
+  <gazebo reference="gripper_finger2_finger_tip_link">
+    <implicitSpringDamper>1</implicitSpringDamper>
+    <mu1>100000</mu1>
+    <mu2>100000</mu2>
+    <kp>100000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
   <!-- /////////////////////////////////   i5 pedestal_Link   ////////////////////////////////////// -->
   <link name="pedestal_Link">
     <visual>
       <geometry>
-        <mesh filename="/home/buivn/wsros_gazebo/src/i5_robots/i5_description/meshes/aubo_i5/collision/pedestal.STL" />
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/collision/pedestal.STL"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/collision/pedestal.STL"/>
       </geometry>
     </visual>
-    
     <!-- activate the collision feature for the pedestal  -->
-    <collision>  
+    <collision>
       <geometry>
-        <mesh filename="/home/buivn/wsros_gazebo/src/i5_robots/i5_description/meshes/aubo_i5/collision/pedestal.STL" />
+        <!-- <mesh filename="$(arg description_directory)/meshes/aubo_i5/collision/pedestal.STL"/> -->
+        <mesh filename="package://i5_description/meshes/aubo_i5/collision/pedestal.STL"/>
       </geometry>
     </collision>
-    
   </link>
-
   <joint name="pedestal_joint" type="fixed">
     <parent link="pedestal_Link"/>
     <child link="base_link"/>
-    <origin xyz="0.0 0.0 0.402" rpy="0.0 0.0 0.0" />
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.402"/>
   </joint>
-
-
- <!-- /////////////////////////////////   world   ////////////////////////////////////// -->
-  <link name="world" />
-
+  <!-- /////////////////////////////////   world   ////////////////////////////////////// -->
+  <link name="world"/>
   <joint name="world_joint" type="fixed">
-    <parent link="world" />
-    <child link ="pedestal_Link" />
-    <origin xyz="0.0 0.0 0.1" rpy="0.0 0.0 0.0" />
+    <parent link="world"/>
+    <child link="pedestal_Link"/>
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.1"/>
   </joint>
-
-
   <!-- /////////////////////////////////   gazebo color   ////////////////////////////////////// -->
   <gazebo reference="pedestal_Link">
-     <material>Gazebo/Grey</material>
+    <material>Gazebo/Grey</material>
   </gazebo>
-
   <!--////////////////////////////////// Transmissions for ROS Control //////////////////////////-->
-
-<xacro:macro name="aubo_arm_transmission" params="joint_name">
-     <transmission name="${joint_name}_trans">
-       <type>transmission_interface/SimpleTransmission</type>
-       <joint name="${joint_name}">
-         <!--<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>-->
-         <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-       </joint>
-       <actuator name="${joint_name}_motor">
-         <mechanicalReduction>1</mechanicalReduction>
-       </actuator>
-     </transmission>
- </xacro:macro>
-
-
+  <xacro:macro name="aubo_arm_transmission" params="joint_name">
+    <transmission name="${joint_name}_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${joint_name}">
+        <!--<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>-->
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${joint_name}_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+  </xacro:macro>
   <xacro:aubo_arm_transmission joint_name="shoulder_joint"/>
   <xacro:aubo_arm_transmission joint_name="upperArm_joint"/>
   <xacro:aubo_arm_transmission joint_name="foreArm_joint"/>
   <xacro:aubo_arm_transmission joint_name="wrist1_joint"/>
   <xacro:aubo_arm_transmission joint_name="wrist2_joint"/>
   <xacro:aubo_arm_transmission joint_name="wrist3_joint"/>
-
 </robot>

@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: i5_description
+    relative_path: urdf/i5aubo1.xacro
+    xacro_args: "--inorder "
+  SRDF:
+    relative_path: config/i5aubo1.srdf
+  CONFIG:
+    author_name: Hoang-Dung BUI
+    author_email: bui.hoangdungtn@gmail.com
+    generated_timestamp: 1602704585

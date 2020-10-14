@@ -1,0 +1,9 @@
+<launch>
+  <include file="$(find i5aubo1_grip_config)/launch/planning_context.launch">
+    <arg name="load_robot_description" value="true"/>
+  </include>
+
+  <node name="inverse_kinematics" pkg="pcd_filter" type="ikFromPose" respawn="false" output="screen">
+    <rosparam command="load" file="$(find i5aubo1_grip_config)/config/kinematics.yaml"/>
+  </node>
+</launch>
